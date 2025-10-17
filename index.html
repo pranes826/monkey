@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sana — Meet the Monkey</title>
+  <meta name="description" content="Introduction site for Sana the monkey — playful, curious, and full of mischief." />
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa6b2;
+      --accent:#ffcc33;
+      --glass: rgba(255,255,255,0.04);
+      --radius:18px;
+      --shadow: 0 10px 30px rgba(2,6,23,0.6);
+      --glass-2: rgba(255,255,255,0.03);
+      --accent-2: #ffd76b;
+    }
+
+    /* Page reset */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg) 0%, #07101a 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      overflow-x:hidden;
+    }
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:60;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(11,18,26,0.6), rgba(11,18,26,0.2));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    .nav {
+      max-width:1200px;
+      margin:0 auto;
+      padding:14px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:0.6px;
+    }
+    .logo-badge{
+      width:44px;height:44px;border-radius:10px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent), var(--accent-2));
+      color:#07101a;font-weight:800;
+      box-shadow: 0 6px 18px rgba(255,204,51,0.12);
+    }
+    nav ul{display:flex;gap:18px;align-items:center;margin:0;padding:0;list-style:none}
+    nav a{
+      color:var(--muted);text-decoration:none;font-weight:600;font-size:0.95rem;
+      transition:color .18s, transform .12s;
+    }
+    nav a:hover{color:var(--accent);transform:translateY(-2px)}
+
+    /* Hero */
+    .hero{
+      max-width:1200px;margin:28px auto 8px;padding:36px;
+      display:grid;grid-template-columns: 1fr 420px;gap:28px;align-items:center;
+    }
+
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+      border: 1px solid rgba(255,255,255,0.03);
+      position:relative;overflow:hidden;
+    }
+
+    .hero-title{font-size:2.4rem;margin:0 0 8px;color:#fff}
+    .hero-title .name{color:var(--accent);padding:4px 8px;border-radius:10px;background:rgba(255,204,51,0.06)}
+    .hero-sub{color:var(--muted);margin:0 0 18px;font-size:1.03rem}
+
+    .badges{display:flex;gap:12px;margin:12px 0}
+    .badge{
+      background:var(--glass);
+      padding:8px 12px;border-radius:12px;font-weight:700;color:var(--accent);
+      display:inline-flex;gap:8px;align-items:center;font-size:0.95rem;
+      border:1px solid rgba(255,204,51,0.08);
+    }
+
+    .cta-row{display:flex;gap:12px;margin-top:18px}
+    .btn{
+      padding:12px 20px;border-radius:12px;border:0;font-weight:800;cursor:pointer;
+      box-shadow: 0 8px 18px rgba(2,6,23,0.45);
+      display:inline-flex;align-items:center;gap:12px;
+    }
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#07101a}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    .intro-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;
+    }
+    .intro-item{
+      background:var(--glass-2);padding:12px;border-radius:12px;text-align:center;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .intro-item strong{display:block;font-size:1.05rem;color:#fff}
+
+    /* Profile / Image column */
+    .hero-image-wrap{
+      position:relative;
+      display:flex;justify-content:center;align-items:center;
+      height:100%;
+    }
+    .profile-frame{
+      width:420px;height:420px;border-radius:28px;overflow:hidden;
+      display:grid;place-items:center;background:linear-gradient(180deg,#071018,#0b1520);
+      border: 6px solid rgba(255,255,255,0.04);box-shadow: 0 20px 60px rgba(2,6,23,0.7);
+      position:relative;
+    }
+    .profile-frame img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.03);transition:transform .6s}
+    .profile-frame:hover img{transform:scale(1.07)}
+    .frame-glow{
+      position:absolute;inset: -30% -30% auto auto;width:220%;height:220%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,204,51,0.07), transparent 12%),
+                  radial-gradient(circle at 70% 80%, rgba(102,187,106,0.03), transparent 12%);
+      mix-blend-mode:screen;pointer-events:none;
+    }
+
+    /* Floating banana animation (fun) */
+    .banana {
+      position: absolute;
+      font-size:1.6rem;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.35));
+      will-change: transform,opacity;
+      animation: floatUp linear infinite;
+      opacity:.95;
+    }
+    @keyframes floatUp{
+      0%{transform: translateY(20vh) rotate(-10deg); opacity:0}
+      10%{opacity:1}
+      100%{transform: translateY(-10vh) rotate(24deg); opacity:0}
+    }
+    /* many bananas with varying delays */
+    .banana.b1{left:6%;bottom:6%;animation-duration:9s;animation-delay:0s}
+    .banana.b2{left:18%;bottom:2%;animation-duration:11s;animation-delay:2s;font-size:1.2rem}
+    .banana.b3{left:82%;bottom:10%;animation-duration:10s;animation-delay:1.3s}
+    .banana.b4{left:60%;bottom:6%;animation-duration:12s;animation-delay:3s}
+    .banana.b5{left:34%;bottom:8%;animation-duration:8s;animation-delay:0.8s}
+
+    /* About / Facts / Gallery */
+    .section{
+      max-width:1200px;margin:18px auto;padding:28px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:16px;padding:20px;border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 28px rgba(2,6,23,0.55);
+    }
+
+    .about-row{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:start}
+    .bio p{color:var(--muted);margin:0 0 12px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:999px;color:var(--accent);font-weight:700;border:1px solid rgba(255,204,51,0.06)}
+
+    /* facts */
+    .facts{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
+    .fact{
+      flex:1;min-width:160px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      padding:14px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.02);
+    }
+    .fact strong{display:block;font-size:1.3rem;color:#fff;margin-bottom:6px}
+
+    /* gallery */
+    .gallery{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .gallery img{width:calc(33.333% - 8px);border-radius:12px;object-fit:cover;border:4px solid rgba(255,255,255,0.02);transition:transform .28s}
+    .gallery img:hover{transform:scale(1.04)}
+
+    /* timeline */
+    .timeline{margin-top:12px;border-left:2px solid rgba(255,255,255,0.03);padding-left:16px}
+    .step{margin-bottom:18px;position:relative;padding-bottom:8px}
+    .step::before{content:"";position:absolute;left:-10px;top:4px;width:14px;height:14px;border-radius:4px;background:var(--accent);border:3px solid #07101a}
+
+    /* footer / contact */
+    footer{max-width:1200px;margin:30px auto;padding:28px;color:var(--muted)}
+    .contact-card{display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .contact-card form{display:flex;gap:12px;flex:1;min-width:260px}
+    .contact-card input,.contact-card textarea{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:10px;color:#e6eef6}
+    .note{font-size:0.92rem;color:var(--muted)}
+
+    /* small screens */
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr; padding:18px}
+      .about-row{grid-template-columns:1fr}
+      .profile-frame{width:320px;height:320px}
+      .gallery img{width:calc(50% - 8px)}
+    }
+    @media (max-width:520px){
+      nav ul{display:none}
+      .profile-frame{width:260px;height:260px}
+      .gallery img{width:100%}
+      .intro-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logo-badge">S</div>
+        <div>
+          <div style="font-size:0.95rem">Sana</div>
+          <div style="font-size:0.78rem;color:var(--muted)">the Curious Monkey</div>
+        </div>
+      </div>
+
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#timeline">Journey</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-card card">
+        <h1 class="hero-title">Meet <span class="name">Sana</span></h1>
+        <p class="hero-sub">A playful, clever monkey who loves climbing trees, making friends, and collecting shiny things.</p>
+
+        <div class="badges" aria-hidden="true">
+          <div class="badge">Age: 4 yrs</div>
+          <div class="badge">Favorite: Bananas 🍌</div>
+          <div class="badge">Home: Rainforest Preserve</div>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" id="watchBtn">Watch Sana (demo)</button>
+          <button class="btn btn-ghost" id="adoptBtn">Express Interest</button>
+        </div>
+
+        <div class="intro-grid" aria-hidden="true">
+          <div class="intro-item">
+            <small>Personality</small>
+            <strong>Playful & Curious</strong>
+          </div>
+          <div class="intro-item">
+            <small>Skills</small>
+            <strong>Climbing & Problem Solving</strong>
+          </div>
+          <div class="intro-item">
+            <small>Quirk</small>
+            <strong>Collects shiny trinkets</strong>
+          </div>
+        </div>
+
+        <div class="chips" style="margin-top:14px">
+          <div class="chip">Tree Acrobat</div>
+          <div class="chip">Friendly</div>
+          <div class="chip">Nocturnal Naps</div>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <div class="profile-frame" role="img" aria-label="Picture of Sana the monkey">
+          <img src="sana.jpeg" alt="Sana the monkey smiling" id="profileImg">
+          <div class="frame-glow"></div>
+        </div>
+
+        <!-- playful bananas -->
+        <div class="banana b1">🍌</div>
+        <div class="banana b2">🍌</div>
+        <div class="banana b3">🍌</div>
+        <div class="banana b4">🍌</div>
+        <div class="banana b5">🍌</div>
+      </div>
+    </section>
+
+    <section class="section card" id="about">
+      <div class="about-row">
+        <div class="bio">
+          <h2>About Sana</h2>
+          <p>Sana is a lively little monkey rescued and raised in a conservation sanctuary. She is known for her intelligence, gentle nature, and an oddly specific love for shiny objects. Staff describe her as a natural entertainer who brightens visitors' days.</p>
+          <div class="facts" role="list">
+            <div class="fact" role="listitem"><strong>Likes</strong><span style="color:var(--muted)">Bananas, climbing, music</span></div>
+            <div class="fact" role="listitem"><strong>Dislikes</strong><span style="color:var(--muted)">Loud machinery</span></div>
+            <div class="fact" role="listitem"><strong>Trick</strong><span style="color:var(--muted)">Solves simple puzzles</span></div>
+          </div>
+
+          <div style="margin-top:14px">
+            <h3 style="margin:10px 0 8px 0;color:var(--accent)">Daily Routine</h3>
+            <div class="timeline" id="timeline">
+              <div class="step"><strong>06:00 AM</strong> — Morning stretch & fruit time</div>
+              <div class="step"><strong>09:00 AM</strong> — Playtime with keepers</div>
+              <div class="step"><strong>01:00 PM</strong> — Nap in the canopy</div>
+              <div class="step"><strong>04:00 PM</strong> — Puzzle enrichment</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card" style="padding:18px">
+          <h3 style="margin-top:0">Quick Facts</h3>
+          <ul style="color:var(--muted);padding-left:18px">
+            <li><strong>Species:</strong> Capuchin Monkey</li>
+            <li><strong>Sex:</strong> Female</li>
+            <li><strong>Rescued:</strong> 2022</li>
+            <li><strong>Health:</strong> Excellent (vaccinated)</li>
+          </ul>
+
+          <h4 style="margin-top:14px">Personality Meter</h4>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <meter value="0" min="0" max="100" style="width:100%"></meter><small style="color:var(--muted)">Friendliness 0%</small>
+            <meter value="80" min="0" max="100" style="width:100%"></meter><small style="color:var(--muted)">Curiosity 80%</small>
+            <meter value="100" min="0" max="100" style="width:100%"></meter><small style="color:var(--muted)">Mischief 100%</small>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section card" id="gallery" aria-labelledby="galleryHeading">
+      <h2 id="galleryHeading">Gallery</h2>
+      <div class="gallery" id="galleryGrid">
+        <img src="F:\sana.jpeg" alt="Sana playing" />
+        <img src="F:\sana_tree.jpg" alt="Sana in a tree" />
+        <img src="F:\sana_shiny.jpg" alt="Sana with shiny trinkets" />
+      </div>
+    </section>
+
+    <section class="section card" id="contact">
+      <h2>Contact & Visit</h2>
+      <div class="contact-card">
+        <div>
+          <p class="note">Sana lives at the Evergreen Conservation Sanctuary. Visits are by appointment only. For adoption or sponsorship enquiries, reach out below.</p>
+        </div>
+
+        <form id="contactForm" aria-label="Contact form to express interest">
+          <input name="name" placeholder="Your name" required />
+          <input name="email" type="email" placeholder="Your email" required />
+          <input name="phone" placeholder="Phone (optional)" />
+          <textarea name="message" rows="3" placeholder="Message or questions" required></textarea>
+          <div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <button type="button" id="sponsorBtn" class="btn btn-ghost">Sponsor Sana</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div style="color:var(--muted)">&copy; 2025 Sana — Evergreen Conservation Sanctuary</div>
+        <div style="color:var(--muted)">Made with care • <a href="#hero" style="color:var(--accent);text-decoration:none">Back to top</a></div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Lightweight interactive behaviors
+
+    // demo: play short "video" animation by toggling profile image sequence (placeholder)
+    const watchBtn = document.getElementById('watchBtn');
+    const profileImg = document.getElementById('profileImg');
+    watchBtn.addEventListener('click', () => {
+      const frames = [
+        'images/sana_profile.jpg',
+        'images/sana_play.jpg',
+        'images/sana_shiny.jpg'
+      ];
+      let i = 0;
+      const id = setInterval(() => {
+        profileImg.src = frames[i % frames.length];
+        i++;
+        if(i>8) { clearInterval(id); profileImg.src = frames[0]; }
+      }, 350);
+    });
+
+    // contact form: emulate submit and show simple confirmation
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      // In a real site, send via fetch to an API endpoint.
+      alert('Thank you, ' + (data.get('name')||'friend') + '! Your message about Sana has been sent.');
+      form.reset();
+    });
+
+    // playful touch: clicking sponsor shows modal-like prompt
+    document.getElementById('sponsorBtn').addEventListener('click', () => {
+      const pledge = prompt('Enter sponsorship amount (USD)', '50');
+      if (pledge) alert('Thank you! A $' + pledge + ' sponsorship for Sana means a lot.');
+    });
+
+    // Preload gallery images for smoother hover
+    ['images/sana_play.jpg','images/sana_tree.jpg','images/sana_shiny.jpg'].forEach(src=>{
+      const i)
